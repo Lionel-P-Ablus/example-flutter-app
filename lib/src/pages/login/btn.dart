@@ -4,10 +4,12 @@ class Btn {
   final String text;
   final VoidCallback onPressed;
 
-  const Btn({
-    this.text,
-    this.onPressed,
-  });
+  // const Btn({
+  //   this.text,
+  //   this.onPressed,
+  // });
+
+  const Btn();
 
   // { param } meaning param not required
   Container _buildTextButton(String text, {VoidCallback onPressed}) {
@@ -22,6 +24,6 @@ class Btn {
     );
   }
 
-  final btnBuildTextButton = (String text, {VoidCallback onPressed}) =>
+  get btnBuildTextButton = (String text, {VoidCallback onPressed}) =>
       _buildTextButton(text, onPressed: onPressed);
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/config/app_route.dart';
+import 'package:flutter_app/src/constants/app_setting.dart';
+import 'package:flutter_app/src/constants/asset.dart';
 import 'package:flutter_app/src/pages/login/background_theme.dart';
 import 'package:flutter_app/src/pages/login/btn_theme.dart';
 import 'package:flutter_app/src/view_models/sso_view_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // StatelessWidget ใช้กับหน้าจอที่ไม่ต้องการ reload หน้าใหม่ทั้งหน้า
 class LoginPage extends StatelessWidget {
@@ -29,7 +32,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 SizedBox(height: 48),
                 Image.asset(
-                  'assets/images/cdgs_logo.png',
+                  Asset.logoImage,
                   width: 200,
                 ),
                 Stack(alignment: Alignment.bottomCenter, children: [
@@ -73,12 +76,18 @@ class LoginPage extends StatelessWidget {
                     width: 280,
                     height: 52,
                     child: TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           final username = _usernameController.text;
                           final password = _passwordController.text;
 
                           if (username == 'singh@gmail.com' &&
                               password == '00000000') {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            var token = 'singh1234567890';
+
+                            prefs.setString(AppSetting.tokenSetting, token);
+                            prefs.setString(AppSetting.usernameString, username);
+
                             Navigator.pushReplacementNamed(context, AppRoute.homeRoute);
                             print('Login Success!!');
                           } else {
