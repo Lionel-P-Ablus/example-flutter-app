@@ -77,28 +77,35 @@ class _HomePageState extends State<HomePage> {
           }
 
           final productList = snapshot.data;
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4),
-            itemBuilder: (context, index) => LayoutBuilder(
-                builder: (context, constraint) => ShopListItem(
-                      constraint.maxHeight,
-                      productList[index],
-                      press: () {
-                        // todo
-                      },
-                    )),
-            itemCount: productList.length,
+          return RefreshIndicator(
+            onRefresh: () async {
+              setState(() {
+
+              });
+            },
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4),
+              itemBuilder: (context, index) => LayoutBuilder(
+                  builder: (context, constraint) => ShopListItem(
+                        constraint.maxHeight,
+                        productList[index],
+                        press: () {
+                          // todo
+                        },
+                      )),
+              itemCount: productList.length,
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
         onPressed: () {
-          // todo
+          Navigator.pushNamed(context, AppRoute.managementRoute);
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
