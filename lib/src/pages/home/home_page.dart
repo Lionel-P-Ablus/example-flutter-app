@@ -79,9 +79,7 @@ class _HomePageState extends State<HomePage> {
           final productList = snapshot.data;
           return RefreshIndicator(
             onRefresh: () async {
-              setState(() {
-
-              });
+              setState(() {});
             },
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -93,8 +91,15 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, constraint) => ShopListItem(
                         constraint.maxHeight,
                         productList[index],
-                        press: () {
-                          // todo
+                        press: () async {
+                          await Navigator.pushNamed(
+                            context,
+                            AppRoute.managementRoute,
+                            arguments: productList[index], // send a data to new page
+                          );
+                          setState(() {
+
+                          });
                         },
                       )),
               itemCount: productList.length,
@@ -104,8 +109,11 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoute.managementRoute);
+        onPressed: () async {
+          await Navigator.pushNamed(context, AppRoute.managementRoute);
+          setState(() {
+            // เสร็จแล้ว ให้ refresh หน้าใหม่
+          });
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -173,7 +181,8 @@ class ShopListItem extends StatelessWidget {
   final double maxHeight;
   final ProductResponse product;
 
-  const ShopListItem(this.maxHeight, this.product, {Key key, this.press}) : super(key: key);
+  const ShopListItem(this.maxHeight, this.product, {Key key, this.press})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -9,9 +9,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // StatelessWidget ใช้กับหน้าจอที่ไม่ต้องการ reload หน้าใหม่ทั้งหน้า
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController?.dispose();
+    _passwordController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +94,16 @@ class LoginPage extends StatelessWidget {
 
                           if (username == 'singh@gmail.com' &&
                               password == '00000000') {
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
                             var token = 'singh1234567890';
 
                             prefs.setString(AppSetting.tokenSetting, token);
-                            prefs.setString(AppSetting.usernameString, username);
+                            prefs.setString(
+                                AppSetting.usernameString, username);
 
-                            Navigator.pushReplacementNamed(context, AppRoute.homeRoute);
+                            Navigator.pushReplacementNamed(
+                                context, AppRoute.homeRoute);
                             print('Login Success!!');
                           } else {
                             print('user or password incorrect!!!');
@@ -114,7 +129,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  // { param } meaning param not required
   Container _buildTextButton(String text, {VoidCallback onPressed}) {
     return Container(
       child: TextButton(
