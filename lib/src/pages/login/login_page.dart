@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/config/app_route.dart';
 import 'package:flutter_app/src/constants/app_setting.dart';
 import 'package:flutter_app/src/constants/asset.dart';
-import 'package:flutter_app/src/pages/login/background_theme.dart';
-import 'package:flutter_app/src/pages/login/btn_theme.dart';
-import 'package:flutter_app/src/view_models/sso_view_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_app/src/shared/background_theme.dart';
+import 'package:flutter_app/src/shared/btn.dart';
+import 'package:flutter_app/src/shared/btn_theme.dart';
+import 'package:flutter_app/src/pages/login/sso_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // StatelessWidget ใช้กับหน้าจอที่ไม่ต้องการ reload หน้าใหม่ทั้งหน้า
@@ -118,50 +118,13 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                   )
                 ]),
-                _buildTextButton('Forget Password', onPressed: () {}),
+                Btn().buildTextButton('Forget Password', onPressed: () {}),
                 SsoButton(),
-                _buildTextButton('Register', onPressed: () {}),
+                Btn().buildTextButton('Register', onPressed: () {}),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Container _buildTextButton(String text, {VoidCallback onPressed}) {
-    return Container(
-      child: TextButton(
-        child: Text(
-          text,
-          style: TextStyle(color: Colors.white70),
-        ),
-        onPressed: onPressed,
-      ),
-    );
-  }
-}
-
-class SsoButton extends StatelessWidget {
-  const SsoButton({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: SSOViewModel()
-            .item
-            .map((item) => FloatingActionButton(
-                  heroTag: item.backgroundColor.toString(),
-                  onPressed: item.onPressed,
-                  child: FaIcon(item.icon),
-                  backgroundColor: item.backgroundColor,
-                ))
-            .toList(),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/pages/login/background_theme.dart';
+import 'package:flutter_app/src/shared/background_theme.dart';
 
 class BtnTheme {
   const BtnTheme();
